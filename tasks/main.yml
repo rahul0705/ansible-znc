@@ -38,7 +38,7 @@
 - name: configure znc
   template:
     src: znc.conf.j2
-    dest: "{{ znc_config_directory }}"/znc.conf
+    dest: "{{ znc_config_directory }}/znc.conf"
     owner: "{{ znc_user }}"
     group: "{{ znc_group }}"
     mode: 0600
