@@ -1,2 +1,78 @@
 ---
 # tasks file for ansible-znc
+
+- name: install znc
+  package:
+    name: znc
+    state: present
+  tags:
+    - install
+
+- name: create znc group
+  group:
+    name: "{{ znc_group }}"
+  tags:
+    - install
+
+- name: create znc user
+  user:
+    name: "{{ znc_user }}"
+    group: "{{ znc_group }}"
+    comment: "ZNC user"
+    home: "{{ znc_home }}"
+    shell: /bin/bash
+    system: yes
+  tags:
+    - install
+
+- name: create znc directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ znc_user }}"
+    group: "{{ znc_group }}"
+  with_items:
+    - "{{ znc_directory }}"
+    - "{{ znc_config_directory }}"
+
+- name: configure znc
+  template:
+    src: znc.conf.j2
+    dest: "{{ znc_config_directory }}"/znc.conf
+    owner: "{{ znc_user }}"
+    group: "{{ znc_group }}"
+    mode: 0600
+  tags:
+    - configuration
+
+- name: configure ufw for znc
+  template:
+    src: znc-ufw.j2
+    dest: /etc/ufw/applications.d/znc
+    mode: 0644
+  when:
+    - znc_configure_ufw
+  tags:
+    - firewall
+
+- name: allow znc in ufw
+  ufw:
+    rule: allow
+    name: ZNC
+    state: enabled
+  when:
+    - znc_configure_ufw
+  tags:
+    - firewall
+
+- include: configure_{{ ansible_service_mgr }}.yml
+  when:
+    - ansible_service_mgr == "systemd" or ansible_service_mgr == "initd" or ansible_service_mgr == "upstart"
+
+- name: ensure znc service is started
+  service:
+    name: znc
+    state: started
+    enabled: yes
+  tags:
+    - service
