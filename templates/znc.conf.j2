@@ -1,0 +1,169 @@
+// {{ ansible_managed }}
+{% if znc_config["anon_ip_limit"] is defined %}AnonIPLimit = {{ znc_config["anon_ip_limit"] }}
+{% endif %}
+{% for znc_config_bind_host in znc_config["bind_host"] %}
+BindHost = {{ znc_config_bind_host }}
+{% endfor %}
+{% if znc_config["connect_delay"] is defined %}ConnectDelay = {{ znc_config["connect_delay"] }}
+{% endif %}
+{% if znc_config["hide_version"] is defined %}HideVersion = {{ znc_config["hide_version"] }}
+{% endif %}
+{% for znc_config_module in znc_config["module"] %}
+LoadModule = {{ znc_config_module }}
+{% endfor %}
+{% if znc_config["max_buffer_size"] is defined %}MaxBufferSize = {{ znc_config["max_buffer_size"] }}
+{% endif %}
+{% for znc_config_motd in znc_config["motd"] %}
+Motd = {{ znc_config_motd }}
+{% endfor %}
+{% if znc_config["pid_file"] is defined %}PidFile = {{ znc_config["pid_file"] }}
+{% endif %}
+{% if znc_config["protect_web_sessions"] is defined %}ProtectWebSessions = {{ znc_config["protect_web_sessions"] }}
+{% endif %}
+{% if znc_config["server_throttle"] is defined %}ServerThrottle = {{ znc_config["server_throttle"] }}
+{% endif %}
+{% if znc_config["skin"] is defined %}Skin = {{ znc_config["skin"] }}
+{% endif %}
+{% if znc_config["ssl_cert_file"] is defined %}SSLCertFile = {{ znc_config["ssl_cert_file"] }}
+{% endif %}
+{% if znc_config["ssl_ciphers"] is defined %}SSLCiphers = {{ znc_config["ssl_ciphers"] }}
+{% endif %}
+{% if znc_config["ssl_protocols"] is defined %}SSLProtocols = {{ znc_config["ssl_protocols"] }}
+{% endif %}
+{% if znc_config["status_prefix"] is defined %}StatusPrefix = {{ znc_config["status_prefix"] }}
+{% endif %}
+{% if znc_config["trusted_proxy"] is defined %}TrustedProxy = {{ znc_config["trusted_proxy"] }}
+{% endif %}
+{% if znc_config["version"] is defined %}Version = {{ znc_config["version"] }}
+{% endif %}
+{% for znc_config_listener in znc_config["listener"] %}
+<Listener {{ znc_config_listener["name"] }}>
+    AllowIRC = {{ znc_config_listener["allow_irc"] }}
+    AllowWeb = {{ znc_config_listener["allow_web"] }}
+    {% if znc_config_listener["host"] is defined %}Host = {{ znc_config_listener["host"] }}
+    {% endif %}
+    IPv4 = {{ znc_config_listener["ipv4"] }}
+    IPv6 = {{ znc_config_listener["ipv6"] }}
+    Port = {{ znc_config_listener["port"] }}
+    SSL = {{ znc_config_listener["ssl"] }}
+    {% if znc_config_listener["uri_prefix"] is defined %}URIPrefix = {{ znc_config_listener["uri_prefix"] }}
+    {% endif %}
+</Listener>
+{% endfor %}
+
+{% for znc_config_user in znc_config["user"] %}
+<User {{ znc_config_user["name"] }}>
+    Admin = {{ znc_config_user["admin"] }}
+    {% for znc_config_user_allow in znc_config_user["allow"] %}
+    Allow = {{ znc_config_user_allow }}
+    {% endfor %}
+    AltNick = {{ znc_config_user["alt_nick"] }}
+    {% if znc_config_user["append_timestamp"] is defined %}AppendTimestamp = {{ znc_config_user["append_timestamp"] }}
+    {% endif %}
+    {% if znc_config_user["auto_clear_chan_buffer"] is defined %}AutoClearChanBuffer = {{ znc_config_user["auto_clear_chan_buffer"] }}
+    {% endif %}
+    {% if znc_config_user["auto_clear_query_buffer"] is defined %}AutoClearQueryBuffer = {{ znc_config_user["auto_clear_query_buffer"] }}
+    {% endif %}
+    {% if znc_config_user["bind_host"] is defined %}BindHost = {{ znc_config_user["bind_host"] }}
+    {% endif %}
+    {% if znc_config_user["buffer"] is defined %}Buffer = {{ znc_config_user["buffer"] }}
+    {% endif %}
+    {% if znc_config_user["chan_buffer_size"] is defined %}ChanBufferSize = {{ znc_config_user["chan_buffer_size"] }}
+    {% endif %}
+    {% if znc_config_user["chan_modes"] is defined %}ChanModes = {{ znc_config_user["chan_modes"] }}
+    {% endif %}
+    {% if znc_config_user["client_encoding"] is defined %}ClientEncoding = {{ znc_config_user["client_encoding"] }}
+    {% endif %}
+    {% for znc_config_user_ctcp_reply in znc_config_user["ctcp_reply"] %}
+    CTCPReply = {{ znc_config_user_ctcp_reply }}
+    {% endfor %}
+    {% if znc_config_user["dcc_bind_host"] is defined %}DCCBindHost = {{ znc_config_user["dcc_bind_host"] }}
+    {% endif %}
+    {% if znc_config_user["deny_load_mod"] is defined %}DenyLoadMod = {{ znc_config_user["deny_load_mod"] }}
+    {% endif %}
+    {% if znc_config_user["deny_set_bind_host"] is defined %}DenySetBindHost = {{ znc_config_user["deny_set_bind_host"] }}
+    {% endif %}
+    Ident = {{ znc_config_user["ident"] }}
+    {% if znc_config_user["join_tries"] is defined %}JoinTries = {{ znc_config_user["join_tries"] }}
+    {% endif %}
+    {% for znc_config_user_module in znc_config_user["module"] %}
+    LoadModule = {{ znc_config_user_module }}
+    {% endfor %}
+    {% if znc_config_user["max_joins"] is defined %}MaxJoins = {{ znc_config_user["max_joins"] }}
+    {% endif %}
+    {% if znc_config_user["max_networks"] is defined %}MaxNetworks = {{ znc_config_user["max_networks"] }}
+    {% endif %}
+    {% if znc_config_user["max_query_buffers"] is defined %}MaxQueryBuffers = {{ znc_config_user["max_query_buffers"] }}
+    {% endif %}
+    {% if znc_config_user["multi_clients"] is defined %}MultiClients = {{ znc_config_user["multi_clients"] }}
+    {% endif %}
+    Nick = {{ znc_config_user["nick"] }}
+    {% if znc_config_user["prepend_timestamp"] is defined %}PrependTimestamp = {{ znc_config_user["prepend_timestamp"] }}
+    {% endif %}
+    {% if znc_config_user["query_buffer_size"] is defined %}QueryBufferSize = {{ znc_config_user["query_buffer_size"] }}
+    {% endif %}
+    {% if znc_config_user["quit_msg"] is defined %}QuitMsg = {{ znc_config_user["quit_msg"] }}
+    {% endif %}
+    RealName = {{ znc_config_user["real_name"] }}
+    {% if znc_config_user["skin"] is defined %}Skin = {{ znc_config_user["skin"] }}
+    {% endif %}
+    {% if znc_config_user["status_prefix"] is defined %}StatusPrefix = {{ znc_config_user["status_prefix"] }}
+    {% endif %}
+    {% if znc_config_user["timestamp_format"] is defined %}TimestampFormat = {{ znc_config_user["timestamp_format"] }}
+    {% endif %}
+    {% if znc_config_user["timezone"] is defined %}Timezone = {{ znc_config_user["timezone"] }}
+    {% endif %}
+    {% for znc_config_user_network in znc_config_user["network"] %}
+    <Network znc_config_user_network["name"]>
+        {% if znc_config_user_network["alt_nick"] is defined %}AltNick = {{ znc_config_user_network["alt_nick"] }}
+        {% endif %}
+        {% if znc_config_user_network["bind_host"] is defined %}BindHost = {{ znc_config_user_network["bind_host"] }}
+        {% endif %}
+        {% if znc_config_user_network["encoding"] is defined %}Encoding = {{ znc_config_user_network["encoding"] }}
+        {% endif %}
+        FloodBurst = {{ znc_config_user_network["flood_burst"] }}
+        FloodRate = {{ znc_config_user_network["flood_rate"] }}
+        {% if znc_config_user_network["ident"] is defined %}Ident = {{ znc_config_user_network["ident"] }}
+        {% endif %}
+        IRCConnectEnabled = {{ znc_config_user_network["irc_connect_enabled"] }}
+        JoinDelay = {{ znc_config_user_network["join_delay"] }}
+        {% for znc_config_user_network_module in znc_config_user_network["module"] %}
+        LoadModule = {{ znc_config_user_network_module }}
+        {% endfor %}
+        {% if znc_config_user_network["nick"] is defined %}Nick = {{ znc_config_user_network["nick"] }}
+        {% endif %}
+        {% if znc_config_user_network["quit_msg"] is defined %}QuitMsg = {{ znc_config_user_network["quit_msg"] }}
+        {% endif %}
+        {% if znc_config_user_network["real_name"] is defined %}RealName = {{ znc_config_user_network["real_name"] }}
+        {% endif %}
+        {% for znc_config_user_network_server in znc_config_user_network["server"] %}
+        Server = {{ znc_config_user_network_server }}
+        {% endfor %}
+        {% for znc_config_user_network_trusted_server_fingerprint in znc_config_user_network["trusted_server_fingerprint"] %}
+        TrustedServerFingerprint = {{ znc_config_user_network_trusted_server_fingerprint }}
+        {% endfor %}
+        {% for znc_config_user_network_channel in znc_config_user_network["channel"] %}
+        <Chan znc_config_user_network_channel["name"]>
+            {% if znc_config_user_network_channel["auto_clear_chan_buffer"] is defined %}AutoClearChanBuffer = {{ znc_config_user_network_channel["auto_clear_chan_buffer"] }}
+            {% endif %}
+            {% if znc_config_user_network_channel["buffer"] is defined %}Buffer = {{ znc_config_user_network_channel["buffer"] }}
+            {% endif %}
+            {% if znc_config_user_network_channel["detached"] is defined %}Detached = {{ znc_config_user_network_channel["detached"] }}
+            {% endif %}
+            {% if znc_config_user_network_channel["disabled"] is defined %}Disabled = {{ znc_config_user_network_channel["disabled"] }}
+            {% endif %}
+            {% if znc_config_user_network_channel["key"] is defined %}Key = {{ znc_config_user_network_channel["key"] }}
+            {% endif %}
+            {% if znc_config_user_network_channel["modes"] is defined %}Modes = {{ znc_config_user_network_channel["modes"] }}
+            {% endif %}
+        </Chan>
+        {% endfor %}
+    </Network>
+    {% endfor %}
+    <Pass password>
+        Hash = {{ znc_config_user["hash"] }}
+        Method = {{ znc_config_user["method"] }}
+        Salt = {{ znc_config_user["salt"] }}
+    </Pass>
+</User>
+{% endfor %}
